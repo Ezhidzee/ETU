@@ -3,8 +3,8 @@
 using namespace std;
 
 void binaryRepresentation(int &x) {
-    int m = 1 << 31;
-    for (int i = 0; i < 32; i++) {
+    int m = 1 << (sizeof(int) * 8 - 1);
+    for (int i = 0; i < sizeof(int) * 8; i++) {
         cout << ((x & m) ? 1 : 0);
         if (i % 8 == 0) cout << " ";
         x <<= 1;
