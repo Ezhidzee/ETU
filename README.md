@@ -1,2 +1,2 @@
 # ETU
-Practical work at ETU "LETI"
+Practical works on programming at ETU "LETI"
