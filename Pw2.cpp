@@ -126,8 +126,8 @@ int *quickSort(int *arr, const int SIZE) {
         }
     }
 
-    int lowerValues[countOfLower];
-    int higherValues[countOfHigher];
+    int *lowerValues = new int[countOfLower];
+    int *higherValues = new int[countOfHigher];
     int j = 0, k = 0;
     for (int i = 0; i < SIZE; ++i) {
         if (i != refNumIndex) {
