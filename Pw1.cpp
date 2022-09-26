@@ -20,7 +20,7 @@ int main() {
     cout << "Enter an integer" << endl;
     cin >> x;
     binaryRepresentation(x);
-    cout << "\n\n";
+    cout << endl << endl;
 
     union {
         int fa;
@@ -29,10 +29,10 @@ int main() {
     cout << "Enter float " << endl;
     cin >> f;
     binaryRepresentation(fa);
-    cout << "\n\n";
+    cout << endl << endl;
 
     union {
-        int arr[2];corrected output order in task 4
+        int arr[2];
         double d;
     };
     cout << "Enter double " << endl;

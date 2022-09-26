@@ -23,11 +23,11 @@ int main() {
     cout << "... " << endl;
 
     while (true) {
-        int k;
-        cin >> k;
-        if (k == 0) {
+        int option;
+        cin >> option;
+        if (option == 0) {
             return 0;
-        } else if (k == 1) {
+        } else if (option == 1) {
             for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
             chrono::time_point start = std::chrono::high_resolution_clock::now();
             quickSort(arrSorted, 100);
@@ -36,13 +36,13 @@ int main() {
             for (int i = 0; i < 10; ++i) cout << " " << arrSorted[i];
             cout << "... ";
             cout << "Time: " << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
-        } else if (k == 2) {
+        } else if (option == 2) {
             cout << "Original array: ";
             findMinMax(arrValues, 100);
             cout << "Sorted array: ";
             quickSort(arrSorted, 100);
             findMinMax(arrSorted, 100);
-        } else if (k == 3) {
+        } else if (option == 3) {
             quickSort(arrSorted, 100);
             int mean = round((arrSorted[0] + arrSorted[99]) / 2);
             cout << "Mean of min & max: " << mean << endl;
@@ -55,7 +55,7 @@ int main() {
                 }
             }
             cout << endl << "Count: " << counter << endl;
-        } else if (k == 4) {
+        } else if (option == 4) {
             int a;
             cout << "Enter a number to compare:";
             cin >> a;
@@ -63,7 +63,7 @@ int main() {
             quickSort(arrSorted, 100);
             for (int i: arrSorted) if (i < a) counter++;
             cout << "Number of values less than entered: " << counter << endl;
-        } else if (k == 5) {
+        } else if (option == 5) {
             int b;
             cout << "Enter a number to compare:";
             cin >> b;
@@ -71,7 +71,7 @@ int main() {
             quickSort(arrSorted, 100);
             for (int i: arrSorted) if (i > b) counter++;
             cout << "Number of values greater than entered: " << counter << endl;
-        } else if (k == 6) {
+        } else if (option == 6) {
             int a;
             cout << "Enter a search value:";
             cin >> a;
@@ -87,7 +87,7 @@ int main() {
             chrono::time_point bruteForceEnd = std::chrono::high_resolution_clock::now();
             cout << "Brute force time: " <<
                  chrono::duration_cast<chrono::microseconds>(bruteForceEnd - bruteForceStart).count() << endl;
-        } else if (k == 7) {
+        } else if (option == 7) {
             int a, b;
             cout << "Enter indexes of elements separated by a space:";
             cin >> a >> b;
@@ -165,21 +165,21 @@ int *quickSort(int *arr, const int SIZE) {
 }
 
 bool binarySearch(int *arr, const int SIZE, int value) {
-    int s = int(ceil(SIZE / 2.0));
-    int middleNum = arr[s - 1];
+    int middleNumIndex = int(ceil(SIZE / 2.0));
+    int middleNumValue = arr[middleNumIndex - 1];
     int len = SIZE;
     while (len > 2) {
-        if (value < middleNum) {
-            s -= int(ceil(len / 4.0));
-            middleNum = arr[s - 1];
+        if (value < middleNumValue) {
+            middleNumIndex -= int(ceil(len / 4.0));
+            middleNumValue = arr[middleNumIndex - 1];
             len = int(ceil(len / 2.0));
-        } else if (value > middleNum) {
-            s += int(ceil(len / 4.0));
-            middleNum = arr[s - 1];
+        } else if (value > middleNumValue) {
+            middleNumIndex += int(ceil(len / 4.0));
+            middleNumValue = arr[middleNumIndex - 1];
             len -= int(ceil(len / 2.0));;
         } else return true;
     }
-    for (int i = s - len; i < s + len; i++) {
+    for (int i = middleNumIndex - len; i < middleNumIndex + len; i++) {
         if (arr[i] == value) return true;
     }
     return false;
