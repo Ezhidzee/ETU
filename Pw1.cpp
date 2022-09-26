@@ -32,11 +32,11 @@ int main() {
     cout << "\n\n";
 
     union {
-        int arr[2];
+        int arr[2];corrected output order in task 4
         double d;
     };
     cout << "Enter double " << endl;
     cin >> d;
-    binaryRepresentation(arr[0]);
     binaryRepresentation(arr[1]);
+    binaryRepresentation(arr[0]);
 }
