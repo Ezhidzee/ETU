@@ -4,17 +4,17 @@
 #include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
-int *quickSort(int*, const int);
+int *quickSort(int*, int);
 
-bool binarySearch(int*, const int, int);
+bool binarySearch(int*, int, int);
 
-bool bruteForce(int*, const int, int);
+bool bruteForce(int*, int, int);
 
-void findMinMax(int*, const int);
+void findMinMax(int*, int);
 
 int main() {
-    srand(time(0));
     int arrValues[100], arrSorted[100];
     for (int i = 0; i < 100; ++i) arrValues[i] = rand() % (99 + 99 + 1) - 99;
     for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
@@ -29,13 +29,13 @@ int main() {
             return 0;
         } else if (option == 1) {
             for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
-            chrono::time_point start = std::chrono::high_resolution_clock::now();
+            time_point start = high_resolution_clock::now();
             quickSort(arrSorted, 100);
-            chrono::time_point end = std::chrono::high_resolution_clock::now();
+            time_point end = high_resolution_clock::now();
             cout << "Array sorted: ";
             for (int i = 0; i < 10; ++i) cout << " " << arrSorted[i];
             cout << "... ";
-            cout << "Time: " << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
+            cout << "Time: " << duration_cast<microseconds>(end - start).count() << endl;
         } else if (option == 2) {
             cout << "Original array: ";
             findMinMax(arrValues, 100);
@@ -77,16 +77,16 @@ int main() {
             cin >> a;
             quickSort(arrSorted, 100);
             cout << (binarySearch(arrSorted, 100, a) ? "Entered value exists" : "Entered value does not exist") << endl;
-            chrono::time_point binarySearchStart = std::chrono::high_resolution_clock::now();
+            time_point binarySearchStart = high_resolution_clock::now();
             binarySearch(arrSorted, 100, a);
-            chrono::time_point binarySearchEnd = std::chrono::high_resolution_clock::now();
+            time_point binarySearchEnd = high_resolution_clock::now();
             cout << "Binary search time: " <<
-                 chrono::duration_cast<chrono::microseconds>(binarySearchEnd - binarySearchStart).count() << endl;
-            chrono::time_point bruteForceStart = std::chrono::high_resolution_clock::now();
+                 duration_cast<microseconds>(binarySearchEnd - binarySearchStart).count() << endl;
+            time_point bruteForceStart = high_resolution_clock::now();
             bruteForce(arrValues, 100, a);
-            chrono::time_point bruteForceEnd = std::chrono::high_resolution_clock::now();
+            time_point bruteForceEnd = high_resolution_clock::now();
             cout << "Brute force time: " <<
-                 chrono::duration_cast<chrono::microseconds>(bruteForceEnd - bruteForceStart).count() << endl;
+                 duration_cast<microseconds>(bruteForceEnd - bruteForceStart).count() << endl;
         } else if (option == 7) {
             int a, b;
             cout << "Enter indexes of elements separated by a space:";
@@ -95,30 +95,30 @@ int main() {
                 cout << "Wrong index!" << endl << "The index must be between 0 and 99:";
                 cin >> a >> b;
             }
-            chrono::time_point start = std::chrono::high_resolution_clock::now();
+            time_point start = high_resolution_clock::now();
             int t = arrValues[a];
             arrValues[a] = arrValues[b];
             arrValues[b] = t;
-            chrono::time_point end = std::chrono::high_resolution_clock::now();
+            time_point end = high_resolution_clock::now();
             cout << "Elements are swapped" << endl << "Time: "
-                 << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
+                 << duration_cast<microseconds>(end - start).count() << endl;
         } else cout << "Such option does not exist!" << endl;
     }
 }
 
-int *quickSort(int *arr, const int SIZE) {
+int *quickSort(int *arr, int size) {
     double mean = 0;
-    for (int i = 0; i < SIZE; ++i) mean += abs(arr[i]);
-    mean /= SIZE;
+    for (int i = 0; i < size; ++i) mean += abs(arr[i]);
+    mean /= size;
     int refNum = 0, refNumIndex;
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < size; ++i) {
         if (abs(abs(arr[i]) - abs(mean)) < abs(abs(refNum) - abs(mean))) {
             refNum = arr[i];
             refNumIndex = i;
         }
     }
     int countOfLower = 0, countOfHigher = 0;
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < size; ++i) {
         if (i != refNumIndex) {
             if (arr[i] >= refNum) {
                 countOfHigher++;
@@ -129,7 +129,7 @@ int *quickSort(int *arr, const int SIZE) {
     int *lowerValues = new int[countOfLower];
     int *higherValues = new int[countOfHigher];
     int j = 0, k = 0;
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < size; ++i) {
         if (i != refNumIndex) {
             if (arr[i] >= refNum) {
                 higherValues[j] = arr[i];
@@ -160,44 +160,41 @@ int *quickSort(int *arr, const int SIZE) {
     }
     for (int i = 0; i < countOfLower; ++i) arr[i] = lowerValues[i];
     arr[countOfLower] = refNum;
-    for (int i = countOfLower + 1; i < SIZE; ++i) arr[i] = higherValues[i - countOfLower - 1];
+    for (int i = countOfLower + 1; i < size; ++i) arr[i] = higherValues[i - countOfLower - 1];
     return arr;
 }
 
-bool binarySearch(int *arr, const int SIZE, int value) {
-    int middleNumIndex = int(ceil(SIZE / 2.0));
+bool binarySearch(int *arr, int size, int value) {
+    int middleNumIndex = int(ceil(size / 2.0));
     int middleNumValue = arr[middleNumIndex - 1];
-    int len = SIZE;
-    while (len > 2) {
+    while (size > 2) {
         if (value < middleNumValue) {
-            middleNumIndex -= int(ceil(len / 4.0));
+            middleNumIndex -= int(ceil(size / 4.0));
             middleNumValue = arr[middleNumIndex - 1];
-            len = int(ceil(len / 2.0));
+            size = int(ceil(size / 2.0));
         } else if (value > middleNumValue) {
-            middleNumIndex += int(ceil(len / 4.0));
+            middleNumIndex += int(ceil(size / 4.0));
             middleNumValue = arr[middleNumIndex - 1];
-            len -= int(ceil(len / 2.0));;
+            size -= int(ceil(size / 2.0));;
         } else return true;
     }
-    for (int i = middleNumIndex - len; i < middleNumIndex + len; i++) {
-        if (arr[i] == value) return true;
-    }
+    if (arr[middleNumIndex - 1] == value) return true;
     return false;
 }
 
-bool bruteForce(int *arr, const int SIZE, int value) {
-    for (int i = 0; i < SIZE; ++i) if (arr[i] == value) return true;
+bool bruteForce(int *arr, int size, int value) {
+    for (int i = 0; i < size; ++i) if (arr[i] == value) return true;
     return false;
 }
 
-void findMinMax(int *arr, const int SIZE) {
-    chrono::time_point start = std::chrono::high_resolution_clock::now();
+void findMinMax(int *arr, int size) {
+    time_point start = high_resolution_clock::now();
     int min = 999, max = -999;
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < size; ++i) {
         if (arr[i] > max) max = arr[i];
         if (arr[i] < min) min = arr[i];
     }
-    chrono::time_point end = std::chrono::high_resolution_clock::now();
+    time_point end = high_resolution_clock::now();
     cout << "Max value: " << max << " Min value: " << min << " Time: "
-         << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
+         << duration_cast<microseconds>(end - start).count() << endl;
 }
