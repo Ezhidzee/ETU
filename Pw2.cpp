@@ -6,13 +6,13 @@
 using namespace std;
 using namespace std::chrono;
 
-int *quickSort(int*, int);
+int *quickSort(int *, int);
 
-bool binarySearch(int*, int, int);
+bool binarySearch(int *, int, int);
 
-bool bruteForce(int*, int, int);
+bool bruteForce(int *, int, int);
 
-void findMinMax(int*, int);
+void findMinMax(int *, int);
 
 int main() {
     int arrValues[100], arrSorted[100];
@@ -23,29 +23,34 @@ int main() {
     cout << "... " << endl;
 
     while (true) {
-        int option;
+        string option;
         cin >> option;
-        if (option == 0) {
+        if (option == "0") {
             return 0;
-        } else if (option == 1) {
+        } else if (option == "1") {
             for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
+
             time_point start = high_resolution_clock::now();
             quickSort(arrSorted, 100);
             time_point end = high_resolution_clock::now();
+
             cout << "Array sorted: ";
             for (int i = 0; i < 10; ++i) cout << " " << arrSorted[i];
+
             cout << "... ";
             cout << "Time: " << duration_cast<microseconds>(end - start).count() << endl;
-        } else if (option == 2) {
+        } else if (option == "2") {
             cout << "Original array: ";
             findMinMax(arrValues, 100);
+
             cout << "Sorted array: ";
             quickSort(arrSorted, 100);
             findMinMax(arrSorted, 100);
-        } else if (option == 3) {
+        } else if (option == "3") {
             quickSort(arrSorted, 100);
             int mean = round((arrSorted[0] + arrSorted[99]) / 2);
             cout << "Mean of min & max: " << mean << endl;
+
             cout << "Indices of values equal to the mean: ";
             int counter = 0;
             for (int i = 0; i < 100; ++i) {
@@ -55,51 +60,61 @@ int main() {
                 }
             }
             cout << endl << "Count: " << counter << endl;
-        } else if (option == 4) {
+        } else if (option == "4") {
             int a;
             cout << "Enter a number to compare:";
             cin >> a;
+
             int counter = 0;
             quickSort(arrSorted, 100);
             for (int i: arrSorted) if (i < a) counter++;
+
             cout << "Number of values less than entered: " << counter << endl;
-        } else if (option == 5) {
+        } else if (option == "5") {
             int b;
             cout << "Enter a number to compare:";
             cin >> b;
+
             int counter = 0;
             quickSort(arrSorted, 100);
             for (int i: arrSorted) if (i > b) counter++;
+
             cout << "Number of values greater than entered: " << counter << endl;
-        } else if (option == 6) {
+        } else if (option == "6") {
             int a;
             cout << "Enter a search value:";
             cin >> a;
+
             quickSort(arrSorted, 100);
             cout << (binarySearch(arrSorted, 100, a) ? "Entered value exists" : "Entered value does not exist") << endl;
+
             time_point binarySearchStart = high_resolution_clock::now();
             binarySearch(arrSorted, 100, a);
             time_point binarySearchEnd = high_resolution_clock::now();
             cout << "Binary search time: " <<
                  duration_cast<microseconds>(binarySearchEnd - binarySearchStart).count() << endl;
+
             time_point bruteForceStart = high_resolution_clock::now();
             bruteForce(arrValues, 100, a);
             time_point bruteForceEnd = high_resolution_clock::now();
             cout << "Brute force time: " <<
                  duration_cast<microseconds>(bruteForceEnd - bruteForceStart).count() << endl;
-        } else if (option == 7) {
+        } else if (option == "7") {
             int a, b;
             cout << "Enter indexes of elements separated by a space:";
             cin >> a >> b;
+
             while (!(a >= 0 && a < 100 && b >= 0 && b < 100)) {
                 cout << "Wrong index!" << endl << "The index must be between 0 and 99:";
                 cin >> a >> b;
             }
+
             time_point start = high_resolution_clock::now();
             int t = arrValues[a];
             arrValues[a] = arrValues[b];
             arrValues[b] = t;
             time_point end = high_resolution_clock::now();
+
             cout << "Elements are swapped" << endl << "Time: "
                  << duration_cast<microseconds>(end - start).count() << endl;
         } else cout << "Such option does not exist!" << endl;
@@ -195,6 +210,7 @@ void findMinMax(int *arr, int size) {
         if (arr[i] < min) min = arr[i];
     }
     time_point end = high_resolution_clock::now();
+
     cout << "Max value: " << max << " Min value: " << min << " Time: "
          << duration_cast<microseconds>(end - start).count() << endl;
 }
