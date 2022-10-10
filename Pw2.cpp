@@ -39,7 +39,7 @@ int main() {
             for (int i = 0; i < 10; ++i) cout << " " << arrSorted[i];
 
             cout << "... ";
-            cout << "Time: " << duration_cast<microseconds>(end - start).count() << endl;
+            cout << "Time: " << duration_cast<nanoseconds>(end - start).count() << endl;
         } else if (option == "2") {
             cout << "Original array: ";
             findMinMax(arrValues, 100);
@@ -93,13 +93,13 @@ int main() {
             binarySearch(arrSorted, 100, a);
             time_point binarySearchEnd = high_resolution_clock::now();
             cout << "Binary search time: " <<
-                 duration_cast<microseconds>(binarySearchEnd - binarySearchStart).count() << endl;
+                 duration_cast<nanoseconds>(binarySearchEnd - binarySearchStart).count() << endl;
 
             time_point bruteForceStart = high_resolution_clock::now();
             bruteForce(arrValues, 100, a);
             time_point bruteForceEnd = high_resolution_clock::now();
             cout << "Brute force time: " <<
-                 duration_cast<microseconds>(bruteForceEnd - bruteForceStart).count() << endl;
+                 duration_cast<nanoseconds>(bruteForceEnd - bruteForceStart).count() << endl;
         } else if (option == "7") {
             int a, b;
             cout << "Enter indexes of elements separated by a space:";
@@ -117,7 +117,7 @@ int main() {
             time_point end = high_resolution_clock::now();
 
             cout << "Elements are swapped" << endl << "Time: "
-                 << duration_cast<microseconds>(end - start).count() << endl;
+                 << duration_cast<nanoseconds>(end - start).count() << endl;
         } else cout << "Such option does not exist!" << endl;
     }
 }
@@ -213,5 +213,5 @@ void findMinMax(int *arr, int size) {
     time_point end = high_resolution_clock::now();
 
     cout << "Max value: " << max << " Min value: " << min << " Time: "
-         << duration_cast<microseconds>(end - start).count() << endl;
+         << duration_cast<nanoseconds>(end - start).count() << endl;
 }
