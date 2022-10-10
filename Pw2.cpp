@@ -15,6 +15,7 @@ bool bruteForce(int *, int, int);
 void findMinMax(int *, int);
 
 int main() {
+    srand(time(0));
     int arrValues[100], arrSorted[100];
     for (int i = 0; i < 100; ++i) arrValues[i] = rand() % (99 + 99 + 1) - 99;
     for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
