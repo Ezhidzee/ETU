@@ -28,9 +28,7 @@ int main() {
         cin >> N;
     }
     int **matrix = new int *[N];
-    for (int **cur = matrix, **end = cur + N - 1; cur <= end; cur++) {
-        *cur = new int[N];
-    }
+    for (int **cur = matrix, **end = cur + N - 1; cur <= end; cur++) *cur = new int[N];
     string fillType;
     cout << "Choose how to fill the array(a or b):" << endl;
     cin >> fillType;
@@ -74,11 +72,8 @@ void printMatrix(int **matrix, int N, bool clear) {
 }
 
 void clearMatrix(int **matrix, int N) {
-    for (int **curi = matrix, **endi = curi + N - 1; curi <= endi; curi++) {
-        for (int *curj = *curi, *endj = curj + N - 1; curj <= endj; curj++) {
-            *curj = 0;
-        }
-    }
+    for (int **curi = matrix, **endi = curi + N - 1; curi <= endi; curi++)
+        for (int *curj = *curi, *endj = curj + N - 1; curj <= endj; curj++) *curj = 0;
 }
 
 void spiralMatrix(int **matrix, int N) {
@@ -93,8 +88,7 @@ void spiralMatrix(int **matrix, int N) {
             *(*curi + N - lineNum - 1) = rand() % N * N + 1;
             printMatrix(matrix, N);
         }
-        for (int *curi = *(matrix + N - lineNum - 1) + N - lineNum - 1,
-                     *endi = curi - N + 1 + 2 * lineNum; curi > endi; curi--) {
+        for (int *curi = *(matrix + N - lineNum - 1) + N - lineNum - 1, *endi = curi - N + 1 + 2 * lineNum; curi > endi; curi--) {
             *curi = rand() % N * N + 1;
             printMatrix(matrix, N);
         }
@@ -121,39 +115,27 @@ void snakeMatrix(int **matrix, int N) {
 }
 
 void rotateMatrix(int **matrix, int N, char option) {
-    int **a = new int *[N / 2], **b = new int *[N / 2],
-            **c = new int *[N / 2], **d = new int *[N / 2], ***arr = new int **[4];
-    arr[0] = a;
-    arr[1] = b;
-    arr[2] = c;
-    arr[3] = d;
-    for (int ***i = arr, ***iEnd = arr + 3; i <= iEnd; i++) {
-        for (int **cur = *i, **end = cur + N / 2 - 1; cur <= end; cur++) {
-            *cur = new int[N / 2];
-        }
-    }
-    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = a; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++) {
+    int **a = new int *[N / 2], **b = new int *[N / 2], **c = new int *[N / 2], **d = new int *[N / 2], ***arr = new int **[4];
+    arr[0] = a; arr[1] = b; arr[2] = c; arr[3] = d;
+    for (int ***i = arr, ***iEnd = arr + 3; i <= iEnd; i++)
+        for (int **cur = *i, **end = cur + N / 2 - 1; cur <= end; cur++) *cur = new int[N / 2];
+
+    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = a; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curArrayJ = *curj;
-        }
-    }
-    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = b; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray;
-             curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = b; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curArrayJ = *curj;
-        }
-    }
-    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = c; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = c; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curArrayJ = *curj;
-        }
-    }
-    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = d; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray;
-             curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = d; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curArrayJ = *curj;
-        }
-    }
+
     int **pa, **pb, **pc, **pd;
     if (option == 'a') {
         pa = c; pb = a; pc = d; pd = b;
@@ -161,31 +143,23 @@ void rotateMatrix(int **matrix, int N, char option) {
         pa = d; pb = c; pc = b; pd = a;
     } else if (option == 'c') {
         pa = c; pb = d; pc = a; pd = b;
-    } else {
-        pa = b; pb = a; pc = d; pd = c;
-    }
-    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = pa; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++) {
+    } else pa = b; pb = a; pc = d; pd = c;
+    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = pa; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curj = *curArrayJ;
-        }
-    }
-    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = pb; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray;
-             curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix, **endi = curi + N / 2 - 1, **curArray = pb; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curj = *curArrayJ;
-        }
-    }
-    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = pc; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = pc; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curj = *curArrayJ;
-        }
-    }
-    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = pd; curi <= endi; curi++, curArray++) {
-        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray;
-             curj <= endj; curj++, curArrayJ++) {
+
+    for (int **curi = matrix + N / 2, **endi = curi + N / 2 - 1, **curArray = pd; curi <= endi; curi++, curArray++)
+        for (int *curj = *curi + N / 2, *endj = curj + N / 2 - 1, *curArrayJ = *curArray; curj <= endj; curj++, curArrayJ++)
             *curj = *curArrayJ;
-        }
-    }
+
     printMatrix(matrix, N, 0);
 }
 
@@ -218,15 +192,11 @@ void sortMatrix(int **matrix, int N) {
             i++;
         }
     }
-
     printMatrix(matrix, N, 0);
 }
 
 void increaseMatrix(int **matrix, int N, int k) {
-    for (int **curi = matrix, **endi = curi + N - 1; curi <= endi; curi++) {
-        for (int *curj = *curi, *endj = curj + N - 1; curj <= endj; curj++) {
-            *curj += k;
-        }
-    }
+    for (int **curi = matrix, **endi = curi + N - 1; curi <= endi; curi++)
+        for (int *curj = *curi, *endj = curj + N - 1; curj <= endj; curj++) *curj += k;
     printMatrix(matrix, N, 0);
 }
