@@ -18,6 +18,8 @@ void sortMatrix(int **, int);
 
 void increaseMatrix(int **, int, int);
 
+void multiplyMatrices(int **, int **, int);
+
 int main() {
     srand(time(0));
     int N;
@@ -56,6 +58,16 @@ int main() {
     int k;
     cin >> k;
     increaseMatrix(matrix, N, k);
+    cout << '\n' << "Filling the matrix from 1 to N^2:" << '\n';
+    system("Pause");
+    clearMatrix(matrix, N);
+    spiralMatrix(matrix, N);
+    printMatrix(matrix, N);
+    int **newMatrix = new int *[N];
+    for (int **cur = newMatrix, **end = cur + N - 1; cur <= end; cur++) *cur = new int[N];
+    clearMatrix(newMatrix, N);
+    spiralMatrix(newMatrix, N);
+    multiplyMatrices(matrix, newMatrix, N);
     system("Pause");
 }
 
@@ -199,4 +211,13 @@ void increaseMatrix(int **matrix, int N, int k) {
     for (int **curi = matrix, **endi = curi + N - 1; curi <= endi; curi++)
         for (int *curj = *curi, *endj = curj + N - 1; curj <= endj; curj++) *curj += k;
     printMatrix(matrix, N, 0);
+}
+
+void multiplyMatrices(int **matrix, int **newMatrix, int N) {
+    for (int **curi = matrix, **curk = newMatrix, **endi = curi + N - 1; curi <= endi; curi++, curk++) {
+        for (int *curj = *curi, *curl = *curk, *endj = curj + N - 1; curj <= endj; curj++, curl++) {
+            *curl *= *curj;
+            printMatrix(newMatrix, N, 1);
+        }
+    }
 }

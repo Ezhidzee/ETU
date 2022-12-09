@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void binaryRepresentation(int &x) {
+void binaryRepresentation(int x) {
     int m = 1 << (sizeof(int) * 8 - 1);
     for (int i = 0; i < sizeof(int) * 8; i++) {
         cout << ((x & m) ? 1 : 0);
@@ -26,7 +26,7 @@ int main() {
         int fa;
         float f;
     };
-    cout << "Enter float " << endl;
+    cout << "Enter float:" << endl;
     cin >> f;
     binaryRepresentation(fa);
     cout << endl << endl;
@@ -35,8 +35,26 @@ int main() {
         int arr[2];
         double d;
     };
-    cout << "Enter double " << endl;
+    cout << "Enter double:" << endl;
     cin >> d;
     binaryRepresentation(arr[1]);
     binaryRepresentation(arr[0]);
+    cout << endl << endl;
+    
+    int count;
+    cout << "Enter the number of digits for binary shift:" << endl;
+    cin >> count;
+    x >>= count;
+    fa >>= count;
+    arr[0] >>= count;
+    arr[1] >>= count;
+    binaryRepresentation(x);
+    cout << endl << endl;
+    binaryRepresentation(fa);
+    cout << endl << endl;
+    binaryRepresentation(arr[1]);
+    binaryRepresentation(arr[0]);
+    cout << endl << endl;
+
+
 }

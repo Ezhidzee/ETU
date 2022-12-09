@@ -4,7 +4,7 @@
 #include <chrono>
 
 using namespace std;
-using namespace std::chrono;
+using namespace chrono;
 
 int *quickSort(int *, int);
 
@@ -20,7 +20,7 @@ int main() {
     for (int i = 0; i < 100; ++i) arrValues[i] = rand() % (99 + 99 + 1) - 99;
     for (int i = 0; i < 100; ++i) arrSorted[i] = arrValues[i];
     cout << "Array created: ";
-    for (int i = 0; i < 10; ++i) cout << " " << arrValues[i];
+    for (int i = 0; i < 20; ++i) cout << " " << arrValues[i];
     cout << "... " << endl;
 
     while (true) {
@@ -36,9 +36,9 @@ int main() {
             time_point end = high_resolution_clock::now();
 
             cout << "Array sorted: ";
-            for (int i = 0; i < 10; ++i) cout << " " << arrSorted[i];
-
+            for (int i = 0; i < 20; ++i) cout << " " << arrSorted[i];
             cout << "... ";
+
             cout << "Time: " << duration_cast<nanoseconds>(end - start).count() << endl;
         } else if (option == "2") {
             cout << "Original array: ";
@@ -118,6 +118,37 @@ int main() {
 
             cout << "Elements are swapped" << endl << "Time: "
                  << duration_cast<nanoseconds>(end - start).count() << endl;
+        } else if (option == "8") {
+            int x, arrValuesCopy[100];
+            for (int i = 0; i < 100; ++i) arrValuesCopy[i] = arrValues[i];
+            cout << "Enter value for decrease: ";
+            cin >> x;
+            for (int i = 0; i < 100; ++i) if (i % 2 == 0) arrValuesCopy[i] -= x;
+
+            cout << "Values reduced: ";
+            for (int i = 0; i < 20; ++i) cout << " " << arrValuesCopy[i];
+            cout << "... \n\n";
+
+            int randVal = rand() % (9 - 1 + 1) + 1;
+            for (int i = 0; i < 100; ++i) if (i % 2 == 0) arrValuesCopy[i] *= randVal;
+
+            cout << "Each even element was multiplied by a random number equal to " << randVal << ":" << endl;
+            for (int i = 0; i < 20; ++i) cout << " " << arrValuesCopy[i];
+            cout << "... \n\n";
+
+            int evenCount = 0, oddCount = 0;
+            for (int i = 0; i < 100; ++i) {
+                if (i % 2 == 0 && arrValuesCopy[i] % 2 == 0) evenCount++;
+                if (i % 2 != 0 && arrValuesCopy[i] % 2 != 0) oddCount++;
+            }
+            cout << "Count of even elements with even indexes: " << evenCount << endl;
+            cout << "Count of odd elements with odd indexes: " << oddCount << endl << endl;
+
+            for (int i = 1; i < 10; ++i) {
+                int counter = 0;
+                for (int j: arrValuesCopy) if (j % i == 0) counter++;
+                cout << "Count of values that are evenly divisible by " << i << ": " << counter << endl;
+            }
         } else cout << "Such option does not exist!" << endl;
     }
 }
