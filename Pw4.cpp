@@ -43,6 +43,7 @@ int main() {
         res += t + " ";
         stringstream(text) >> t;
     }
+    res.erase(res.end() - 1);
     for (int i = 0; i < res.size(); ++i) {
         if (isPMark(res[i])) {
             if (res[i] == '.' && i == res.size() - 3 && res[i + 1] == '.' && res[i + 2] == '.') {
@@ -52,8 +53,7 @@ int main() {
                 i += 2;
                 continue;
             }
-            int j = i + 1;
-            while (j != res.size() && isPMark(res[j])) res.erase(res.begin() + j);
+            while (i + 1 != res.size() && res[i + 1] == res[i]) res.erase(res.begin() + i + 1);
         }
     }
     for (int i = 0; i < res.size(); ++i) {
@@ -61,7 +61,7 @@ int main() {
             res.erase(res.begin() + i);
             i--;
         }
-        if (isPMark(res[i]) && i + 1 != res.size() && res[i + 1] != ' ')
+        if (isPMark(res[i]) && i + 1 != res.size() && res[i + 1] != ' ' && !isPMark(res[i + 1]))
             res = res.substr(0, i + 1) + " " + res.substr(i + 1, res.size() - i);
     }
     text = res;
