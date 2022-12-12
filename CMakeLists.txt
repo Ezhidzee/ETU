@@ -3,4 +3,4 @@ project(Pw1Etu)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Pw1Etu Pw3.cpp)
+add_executable(Pw1Etu pw4.cpp)
