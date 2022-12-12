@@ -91,12 +91,16 @@ int main() {
     cout << endl << endl << "Current line:" << endl << text << endl << "Enter substring to find:" << endl;
     string substring;
     cin >> substring;
+    bool isFound = 0;
     for (int i = 0; i < text.size() - substring.size() + 1; ++i) {
         if (text.substr(i, substring.size()) == substring) {
             cout << "First occurrence indexes [" << i << "; " << i + substring.size() << "]" << endl;
+            isFound = 1;
             break;
         }
     }
+    if (!isFound) cout << "Substring not found" << endl;
+
     int *prefTable = new int[substring.size()];
     for (int j = 0; j < substring.size(); ++j) prefTable[j] = 0;
     for (int j = 2; j <= substring.size(); ++j) {
@@ -109,7 +113,7 @@ int main() {
         prefTable[j - 1] = maxPrefLength;
     }
     int i = 0;
-    for (int j = 0; j < substring.size(); ++j) {
+    for (int j = 0; j < substring.size() && i < text.size(); ++j) {
         if (substring[j] != text[i + j]) {
             if (j == 0) {
                 i++;
@@ -121,7 +125,7 @@ int main() {
             }
         }
     }
-    cout << "First occurrence indexes with KMP alg [" << i << "; " << i + substring.size() << "]" << endl;
+    if (i != text.size()) cout << "First occurrence indexes with KMP alg [" << i << "; " << i + substring.size() << "]" << endl;
 }
 
 bool isEmpty(string &str) {
