@@ -1,3 +1,5 @@
+#include "Pw3.h"
+
 #include <iostream>
 #include <thread>
 #include <iomanip>
@@ -20,7 +22,7 @@ void increaseMatrix(int **, int, int);
 
 void multiplyMatrices(int **, int **, int);
 
-int main() {
+void pw3() {
     srand(time(0));
     int N;
     cout << "Enter N(6, 8 or 10):" << "\n";

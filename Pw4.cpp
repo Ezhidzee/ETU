@@ -1,10 +1,13 @@
+#include "Pw4.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+
 /*
  * Test input:
- * oojow     klkds lkl7sd,dfewij  ,,, dn8732r328 JHUuhdwkdlh      .
+ * oojow     klkds lkl7sd,dfewij  ,,, dn8732r328 khUuOHIOwkdlh      .
  * */
 using namespace std;
 
@@ -12,7 +15,7 @@ bool isEmpty(string &);
 
 bool isPMark(char &);
 
-int main() {
+void pw4() {
     int option;
     cout << "Choose how to read the text: '1' from the keyboard or '2' from the file:";
     cin >> option;
@@ -126,6 +129,7 @@ int main() {
         }
     }
     if (i != text.size()) cout << "First occurrence indexes with KMP alg [" << i << "; " << i + substring.size() << "]" << endl;
+    system("pause");
 }
 
 bool isEmpty(string &str) {

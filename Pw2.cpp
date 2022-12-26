@@ -1,3 +1,5 @@
+#include "Pw2.h"
+
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
@@ -14,7 +16,7 @@ bool bruteForce(int *, int, int);
 
 void findMinMax(int *, int);
 
-int main() {
+int pw2() {
     srand(time(0));
     int arrValues[100], arrSorted[100];
     for (int i = 0; i < 100; ++i) arrValues[i] = rand() % (99 + 99 + 1) - 99;

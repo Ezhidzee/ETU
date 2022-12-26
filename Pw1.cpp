@@ -1,3 +1,5 @@
+#include "Pw1.h"
+
 #include <iostream>
 
 using namespace std;
@@ -11,7 +13,7 @@ void binaryRepresentation(int x) {
     }
 }
 
-int main() {
+void pw1() {
     cout << "int " << sizeof(int) << endl << "short int " << sizeof(short int) << endl << "long int " << sizeof(long int)
     << endl << "float " << sizeof(float) << endl << "double " << sizeof(double) << endl << "long double " << sizeof(long double)
     << endl << "char " << sizeof(char) << endl << "bool " << sizeof(bool) << endl << endl;
@@ -55,6 +57,4 @@ int main() {
     binaryRepresentation(arr[1]);
     binaryRepresentation(arr[0]);
     cout << endl << endl;
-
-
 }
